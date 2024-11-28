@@ -42,8 +42,10 @@ stages:
                       echo "test" | sudo -S su - test | kill -9 $PID
                       whoami
                       echo "Tomcat service has been killed."
+                      exit 0
                     else
                       echo "Tomcat service is not running."
+                      exit 1
                     fi
       - job: manual_approval
         dependsOn: Tomcat_Stop
