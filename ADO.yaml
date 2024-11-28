@@ -21,7 +21,7 @@ stages:
               PID=$(pgrep -f "/home/test/tomcat")
               if [ -n "$PID" ]; then
                 echo $PID
-                sudo su - tomcat <<HERE
+                sudo su - test << HERE
                 sudo su - test kill -9 $PID
                 whoami
                 HERE                
