@@ -80,6 +80,7 @@ stages:
                     echo "Starting Tomcat..."
                     echo $(Dev-Tomcat-Path)
                     whoami
+                    sudo su - test $(Dev-Tomcat-Path)/bin/startup.sh
                     #echo "test" | sudo -S su - test $(Dev-Tomcat-Path)/bin/startup.sh
-                    echo "test" | sudo -S su - test -c "$(Dev-Tomcat-Path)/bin/startup.sh"
+                    #echo "test" | sudo -S su - test -c "$(Dev-Tomcat-Path)/bin/startup.sh"
                     whoami
