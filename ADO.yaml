@@ -18,6 +18,7 @@ stages:
                 - script: |
                     echo "Killing Tomcat service..."
                     PID=$(pgrep -f "/home/test/tomcat")
+                    echo $PID
                     if [ -n "$PID" ]; then
                       echo $PID
                       sudo su - test <<HERE
