@@ -40,7 +40,7 @@ stages:
                     echo $PID
                     if [ -n "$PID" ]; then
                       echo $PID
-                      sudo su - test kill -9 $PID
+                      echo "test" | sudo -S su - test | kill -9 $PID
                       whoami
                       echo "Tomcat service has been killed."
                     else
