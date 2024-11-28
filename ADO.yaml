@@ -21,8 +21,8 @@ stages:
               PID=$(pgrep -f "/home/test/tomcat")
               if [ -n "$PID" ]; then
                 echo $PID
-                sudo su - test << HERE
-                sudo su - test kill -9 $PID
+                sudo su - test <<HERE
+                kill -9 $PID
                 whoami
                 HERE                
                 echo "Tomcat service has been killed."
