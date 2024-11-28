@@ -22,7 +22,7 @@ stages:
               if [ -n "$PID" ]; then
                 echo $PID
                 sudo su - tomcat <<HERE
-                kill -9 $PID
+                sudo su - test kill -9 $PID
                 whoami
                 HERE                
                 echo "Tomcat service has been killed."
