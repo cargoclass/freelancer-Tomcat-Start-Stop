@@ -37,7 +37,7 @@ stages:
               steps:
                 - script: |
                     echo $(Dev-Tomcat-Path)
-                    echo "Killing Tomcat service..."
+                    echo "Started Killing Tomcat service..."
                     PID=$(pgrep -f $(Dev-Tomcat-Path))
                     echo $PID
                     if [ -n "$PID" ]; then
