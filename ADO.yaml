@@ -41,8 +41,7 @@ stages:
                     PID=$(pgrep -f $(Dev-Tomcat-Path))
                     echo $PID
                     if [ -n "$PID" ]; then
-                      echo $PID
-                      echo "test" | sudo -S su - test | kill -9 $PID
+                      kill -9 $PID
                       whoami
                       echo "Tomcat service has been killed."
                       exit 0
