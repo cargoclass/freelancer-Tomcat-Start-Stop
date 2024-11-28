@@ -60,6 +60,6 @@ stages:
                     cat $(tomcatpath)/bin/startup.sh
                     whoami
                     #sudo su - test <<HERE
-                    sudo su - test $(tomcatpath)/bin/startup.sh
+                    echo "test" | sudo -S su - test $(tomcatpath)/bin/startup.sh
                     whoami
                     #HERE
