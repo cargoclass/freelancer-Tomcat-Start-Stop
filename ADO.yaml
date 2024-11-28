@@ -1,1 +1,72 @@
-######
+trigger:
+- none
+
+stages:
+########################################### Tomcat Start
+- stage: Stage_TomcatStop
+  variables:
+    tomcatpath: $(Dev-Tomcat-Path)
+  jobs:
+  - deployment: Tomcat_Stop
+    environment: 
+      name: Dev
+      resourceType: VirtualMachine
+      tags: Dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: |
+              echo "Killing Tomcat service..."
+              PID=$(ps h -C java -o "%p:%a" | grep $(tomcatpath) | cut -d: -f1)
+              if [ -n "$PID" ]; then
+                echo $PID
+                sudo su - tomcat <<HERE
+                kill -9 $PID
+                whoami
+                HERE                
+                echo "Tomcat service has been killed."
+              else
+                echo "Tomcat service is not running."
+              fi
+
+
+########################################### Manual Validation          
+  - job: manual_approval
+    dependsOn: Tomcat_Stop
+    displayName: "Manual Approval"
+    pool: server
+    timeoutInMinutes: 4320
+    steps:
+    - task: ManualValidation@0
+      timeoutInMinutes: 360
+      inputs:
+        notifyUsers: |
+          n01123@uniper.energy
+          j38105@uniper.energy
+        instructions: "Hi, Please Validate before going to start tomcat service"
+        onTimeout: 'reject'
+
+########################################### Tomcat Stop
+- stage: Stage_TomcatStart
+  variables:
+    tomcatpath: $(Dev-Tomcat-Path)
+  jobs:
+  - deployment: Tomcat_Start
+    environment: 
+      name: Dev
+      resourceType: VirtualMachine
+      tags: Dev
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - script: |
+              echo "Starting Tomcat..."
+              echo $(tomcatpath)
+              cat $(tomcatpath)/bin/startup.sh
+              whoami
+              sudo su - tomcat <<HERE
+              $(tomcatpath)/bin/startup.sh
+              whoami
+              HERE
