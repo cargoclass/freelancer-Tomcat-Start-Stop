@@ -1,5 +1,6 @@
 trigger:
   - none
+  
 parameters:
   - name: environment
     displayName: Which Team to deploy?
@@ -20,9 +21,10 @@ variables:
       value: "/home/test/toat"
       
 stages:
+############################################# Tomcat Stop
   - stage: Stage_TomcatStop
-    variables:
-      tomcatpath: $(Dev-Tomcat-Path)
+    #variables:
+    #  tomcatpath: $(Dev-Tomcat-Path)
     jobs:
       - deployment: Tomcat_Stop
         environment:
@@ -34,8 +36,9 @@ stages:
             deploy:
               steps:
                 - script: |
+                    echo $(Dev-Tomcat-Path)
                     echo "Killing Tomcat service..."
-                    PID=$(pgrep -f $(tomcatpath))
+                    PID=$(pgrep -f $(Dev-Tomcat-Path))
                     echo $PID
                     if [ -n "$PID" ]; then
                       echo $PID
@@ -59,9 +62,11 @@ stages:
               notifyUsers: |
               instructions: Hi, Please Confirm Before Launching The Tomcat Service.
               onTimeout: reject
+              
+############################################# Tomcat Start
   - stage: Stage_TomcatStart
-    variables:
-      tomcatpath: $(Dev-Tomcat-Path)
+    #variables:
+    #  tomcatpath: $(Dev-Tomcat-Path)
     jobs:
       - deployment: Tomcat_Start
         environment:
@@ -74,8 +79,7 @@ stages:
               steps:
                 - script: |
                     echo "Starting Tomcat..."
-                    echo $(tomcatpath)
-                    cat $(tomcatpath)/bin/startup.sh
+                    echo $(Dev-Tomcat-Path)
                     whoami
-                    echo "test" | sudo -S su - test $(tomcatpath)/bin/startup.sh
+                    echo "test" | sudo -S su - test $(Dev-Tomcat-Path)/bin/startup.sh
                     whoami
