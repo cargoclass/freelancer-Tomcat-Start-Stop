@@ -23,7 +23,7 @@ stages:
                       sudo su - test <<HERE
                       kill -9 \$PID
                       whoami
-                      HERE                
+                      HERE
                       echo "Tomcat service has been killed."
                     else
                       echo "Tomcat service is not running."
