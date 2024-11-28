@@ -1,4 +1,13 @@
 ---
+parameters:
+- name: env
+  displayName: Environment
+  type: string
+  default: 'development'
+  values:
+  - development
+  - staging
+  - production
 trigger:
   - none
 stages:
@@ -21,10 +30,8 @@ stages:
                     echo $PID
                     if [ -n "$PID" ]; then
                       echo $PID
-                      #sudo su - test <<HERE
                       sudo su - test kill -9 $PID
                       whoami
-                      #HERE
                       echo "Tomcat service has been killed."
                     else
                       echo "Tomcat service is not running."
@@ -39,7 +46,7 @@ stages:
             timeoutInMinutes: 360
             inputs:
               notifyUsers: |
-              instructions: Hi, Please Validate before going to start tomcat service
+              instructions: Hi, Please Confirm Before Launching The Tomcat Service.
               onTimeout: reject
   - stage: Stage_TomcatStart
     variables:
@@ -59,7 +66,5 @@ stages:
                     echo $(tomcatpath)
                     cat $(tomcatpath)/bin/startup.sh
                     whoami
-                    #sudo su - test <<HERE
                     echo "test" | sudo -S su - test $(tomcatpath)/bin/startup.sh
                     whoami
-                    #HERE
