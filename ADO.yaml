@@ -39,8 +39,6 @@ stages:
             timeoutInMinutes: 360
             inputs:
               notifyUsers: |
-                n01123@uniper.energy
-                j38105@uniper.energy
               instructions: Hi, Please Validate before going to start tomcat service
               onTimeout: reject
   - stage: Stage_TomcatStart
