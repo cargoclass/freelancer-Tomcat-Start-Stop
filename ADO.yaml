@@ -9,7 +9,7 @@ stages:
   jobs:
   - deployment: Tomcat_Stop
     environment: 
-      name: Dev
+      name: Test-New
       resourceType: VirtualMachine
       tags: Dev
     strategy:
@@ -54,7 +54,7 @@ stages:
   jobs:
   - deployment: Tomcat_Start
     environment: 
-      name: Dev
+      name: Test-New
       resourceType: VirtualMachine
       tags: Dev
     strategy:
