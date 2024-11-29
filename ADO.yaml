@@ -26,7 +26,7 @@ variables:
 
   - name: Env-Tag
     ${{ if eq( parameters['environment'], 'Dev') }}:
-      value: "Dev"
+      value: Dev
       
 stages:
 ############################################# Tomcat Stop
