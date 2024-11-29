@@ -20,13 +20,13 @@ variables:
     ${{ if notIn( parameters['environment'], 'Dev', 'Uat') }}:
       value: "/home/test/toat"
 
-  - name: Env-Name
+  - name: EnvName
     ${{ if eq( parameters['environment'], 'Dev') }}:
       value: "Test-New"
 
-  - name: Env-Tag
+  - name: EnvTag
     ${{ if eq( parameters['environment'], 'Dev') }}:
-      value: Dev
+      value: "Dev"
       
 stages:
 ############################################# Tomcat Stop
@@ -36,9 +36,9 @@ stages:
     jobs:
       - deployment: Tomcat_Stop
         environment:
-          name: $Env-Name
+          name: $(EnvName)
           resourceType: VirtualMachine
-          tags: $Env-Tag
+          tags: $(EnvTag)
         strategy:
           runOnce:
             deploy:
