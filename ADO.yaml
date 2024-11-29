@@ -36,9 +36,9 @@ stages:
     jobs:
       - deployment: Tomcat_Stop
         environment:
-          name: $(EnvName)
+          name: ${{ variables. EnvName }}
           resourceType: VirtualMachine
-          tags: $(EnvTag)
+          tags: ${{ variables. EnvTag }}
         strategy:
           runOnce:
             deploy:
