@@ -36,9 +36,9 @@ stages:
     jobs:
       - deployment: Tomcat_Stop
         environment:
-          name: $(Env-Name)
+          name: $Env-Name
           resourceType: VirtualMachine
-          tags: $(Env-Tag)
+          tags: $Env-Tag
         strategy:
           runOnce:
             deploy:
